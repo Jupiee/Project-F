@@ -1,0 +1,113 @@
+{
+  "GK": {
+    "offensive": 0.00,
+    "playmaking": 0.10,
+    "defensive": 0.20,
+    "goalkeeping": 0.70
+  },
+
+  "CB": {
+    "offensive": 0.05,
+    "playmaking": 0.10,
+    "defensive": 0.85,
+    "goalkeeping": 0.00
+  },
+
+  "LB": {
+    "offensive": 0.15,
+    "playmaking": 0.25,
+    "defensive": 0.60,
+    "goalkeeping": 0.00
+  },
+
+  "RB": {
+    "offensive": 0.15,
+    "playmaking": 0.25,
+    "defensive": 0.60,
+    "goalkeeping": 0.00
+  },
+
+  "LWB": {
+    "offensive": 0.25,
+    "playmaking": 0.25,
+    "defensive": 0.50,
+    "goalkeeping": 0.00
+  },
+
+  "RWB": {
+    "offensive": 0.25,
+    "playmaking": 0.25,
+    "defensive": 0.50,
+    "goalkeeping": 0.00
+  },
+
+  "DMF": {
+    "offensive": 0.10,
+    "playmaking": 0.30,
+    "defensive": 0.60,
+    "goalkeeping": 0.00
+  },
+
+  "CM": {
+    "offensive": 0.20,
+    "playmaking": 0.45,
+    "defensive": 0.35,
+    "goalkeeping": 0.00
+  },
+
+  "CAM": {
+    "offensive": 0.45,
+    "playmaking": 0.45,
+    "defensive": 0.10,
+    "goalkeeping": 0.00
+  },
+
+  "LM": {
+    "offensive": 0.35,
+    "playmaking": 0.40,
+    "defensive": 0.25,
+    "goalkeeping": 0.00
+  },
+
+  "RM": {
+    "offensive": 0.35,
+    "playmaking": 0.40,
+    "defensive": 0.25,
+    "goalkeeping": 0.00
+  },
+
+  "LW": {
+    "offensive": 0.55,
+    "playmaking": 0.35,
+    "defensive": 0.10,
+    "goalkeeping": 0.00
+  },
+
+  "RW": {
+    "offensive": 0.55,
+    "playmaking": 0.35,
+    "defensive": 0.10,
+    "goalkeeping": 0.00
+  },
+
+  "CF": {
+    "offensive": 0.65,
+    "playmaking": 0.30,
+    "defensive": 0.05,
+    "goalkeeping": 0.00
+  },
+
+  "ST": {
+    "offensive": 0.75,
+    "playmaking": 0.20,
+    "defensive": 0.05,
+    "goalkeeping": 0.00
+  },
+
+  "SS": {
+    "offensive": 0.55,
+    "playmaking": 0.40,
+    "defensive": 0.05,
+    "goalkeeping": 0.00
+  }
+}
