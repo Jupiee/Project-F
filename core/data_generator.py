@@ -53,16 +53,37 @@ class Player_Gen:
         }
         self.stats_gen = Stats_Gen(self.randomizer)
 
-    def generate_player(self, position_layer=None):
+    def generate_player(self, position_layer=None, position_role=None):
 
-        if position_layer is None:
+        if position_layer is None and position_role is None:
             position_layer = self.randomizer.choice(self.position_categories)
 
-        if position_layer != "GK":
-            position_role = self.randomizer.choice(self.position_specific_roles[position_layer])
+        if position_layer is not None and position_role is None:
 
-        else:
-            position_role = "GK"
+            if position_layer == "GK":
+                position_role = "GK"
+
+            elif position_layer in self.position_categories:
+                position_role = self.randomizer.choice(self.position_specific_roles[position_layer])
+
+            else:
+                raise ValueError(f"Invalid Position layer {position_layer}, it must be one of GK, DEF, MF or FW")
+
+        elif position_layer is None and position_role is not None:
+
+            if position_role == "GK":
+                position_layer = "GK"
+
+            else:
+
+                for layer in range(1, 4):
+                    if position_role in self.position_specific_roles[self.position_categories[layer]]:
+                        position_layer = layer
+                        break
+
+                if position_layer is None:
+
+                    raise ValueError(f"Invalid Position role {position_role}")
 
         player_stats = self.stats_gen.generate_stats(position_role)
         player_name, age, nationality = self.generate_profile(self.randomizer.choice(LOCALES))
