@@ -9,24 +9,26 @@ import json
 #  Prime player => 20 - 30
 #  Developed player => 30 - 40
 
+with open("positions.json", "r", encoding='utf-8') as position_file:
+    POSITIONS_DATA = json.load(position_file)
+
 class Stats_Gen:
 
-    def __init__(self):
+    def __init__(self, randomizer):
 
-        with open("positions.json", "r", encoding='utf-8') as position_file:
-            self.POSITIONS = json.load(position_file)
+        self.randomizer = randomizer
 
     def generate_stats(self, position_role):
 
-        position_stats = self.POSITIONS[position_role]["stats"]
-        position_weights = self.POSITIONS[position_role]["weights"]
+        position_stats = POSITIONS_DATA[position_role]["stats"]
+        position_weights = POSITIONS_DATA[position_role]["weights"]
 
         player_stats = {}
 
         for stat in position_stats:
 
             stats_range = range(position_stats[stat][0], position_stats[stat][1])
-            generated_stat = random.choice(stats_range)
+            generated_stat = self.randomizer.choice(stats_range)
             player_stats[stat] = generated_stat
 
         attributes = Attributes(**player_stats)
@@ -38,31 +40,31 @@ class Stats_Gen:
 class Player_Gen:
 
     def __init__(self, seed=None):
-        self.random = random.Random(seed)
+
+        self.randomizer = random.Random(seed)
         self.fake = Faker(["fr_FR", "it_IT", "de_DE", "en_US", "en_UK", "pt_BR", "es_AR", "es_ES"])
+        Faker.seed(seed)
         self.position_categories = ["GK", "DEF", "MF", "FW"]
         self.position_specific_roles = {
             "DEF": ["CB", "LB", "RB", "LWB", "RWB"],
             "MF": ["DMF", "CM", "RM", "LM", "CAM"],
             "FW": ["CF", "ST", "LW", "RW", "SS"]
         }
-        self.stats_gen = Stats_Gen()
+        self.stats_gen = Stats_Gen(self.randomizer)
 
-    def generate_player(self):
-
-        position_layer = None
+    def generate_player(self, position_layer=None):
 
         if position_layer is None:
-            position_layer = self.random.choice(self.position_categories)
+            position_layer = self.randomizer.choice(self.position_categories)
 
         if position_layer != "GK":
-            position_role = self.random.choice(self.position_specific_roles[position_layer])
+            position_role = self.randomizer.choice(self.position_specific_roles[position_layer])
 
         else:
             position_role = "GK"
 
         player_stats = self.stats_gen.generate_stats(position_role)
-        player_name = f"{self.fake.first_name_male()} {self.fake.last_name()}"
+        player_name = f"{self.fake.unique.first_name_male()} {self.fake.unique.last_name()}"
         age = self.fake.random_int(min=18, max=27)
         nationality = self.fake.current_country()
         height = 120
