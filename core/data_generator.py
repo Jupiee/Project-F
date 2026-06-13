@@ -12,17 +12,14 @@ import json
 class Stats_Gen:
 
     def __init__(self):
-        
-        with open("data.json", "r", encoding='utf-8') as json_file_1:
-            self.POSITIONS = json.load(json_file_1)
 
-        with open("position_weights.json", "r", encoding='utf-8') as json_file_2:
-            self.POSITION_WEIGHTS = json.load(json_file_2)
+        with open("positions.json", "r", encoding='utf-8') as position_file:
+            self.POSITIONS = json.load(position_file)
 
     def generate_stats(self, position_role):
 
-        position_stats = self.POSITIONS[position_role]
-        position_weights = self.POSITION_WEIGHTS[position_role]
+        position_stats = self.POSITIONS[position_role]["stats"]
+        position_weights = self.POSITIONS[position_role]["weights"]
 
         player_stats = {}
 
