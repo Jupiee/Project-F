@@ -9,6 +9,8 @@ import json
 #  Prime player => 20 - 30
 #  Developed player => 30 - 40
 
+LOCALES = ["fr_FR", "it_IT", "de_DE", "en_US", "en_UK", "pt_BR", "es_AR", "es_ES", "uk_UA", "tr_TR", "sv_SE", "sq_AL"]
+
 with open("positions.json", "r", encoding='utf-8') as position_file:
     POSITIONS_DATA = json.load(position_file)
 
@@ -41,9 +43,8 @@ class Player_Gen:
 
     def __init__(self, seed=None):
 
+        self.seed = seed
         self.randomizer = random.Random(seed)
-        self.fake = Faker(["fr_FR", "it_IT", "de_DE", "en_US", "en_UK", "pt_BR", "es_AR", "es_ES"])
-        Faker.seed(seed)
         self.position_categories = ["GK", "DEF", "MF", "FW"]
         self.position_specific_roles = {
             "DEF": ["CB", "LB", "RB", "LWB", "RWB"],
@@ -64,9 +65,7 @@ class Player_Gen:
             position_role = "GK"
 
         player_stats = self.stats_gen.generate_stats(position_role)
-        player_name = f"{self.fake.unique.first_name_male()} {self.fake.unique.last_name()}"
-        age = self.fake.random_int(min=18, max=27)
-        nationality = self.fake.current_country()
+        player_name, age, nationality = self.generate_profile(self.randomizer.choice(LOCALES))
         height = 120
         weight = 70
         strong_foot = "Right"
@@ -100,3 +99,14 @@ class Player_Gen:
             traits,
             contract
         )
+    
+    def generate_profile(self, locale):
+
+        fake = Faker(locale)
+        Faker.seed(self.seed)
+
+        player_name = f"{fake.unique.first_name_male()} {fake.unique.last_name()}"
+        age = fake.random_int(min=18, max=27)
+        nationality = fake.current_country()
+
+        return player_name, age, nationality
