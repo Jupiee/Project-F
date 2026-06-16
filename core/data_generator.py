@@ -85,11 +85,12 @@ class Player_Gen:
 
                     raise ValueError(f"Invalid Position role {position_role}")
 
+        foot_bias_weights = POSITIONS_DATA[position_role]["foot_bias"]
         player_stats = self.stats_gen.generate_stats(position_role)
         player_name, age, nationality = self.generate_profile(self.randomizer.choice(LOCALES))
         height = 120
         weight = 70
-        strong_foot = "Right"
+        strong_foot = self.randomizer.choices(population=['Left', 'Right'], weights=[foot_bias_weights['left'], foot_bias_weights['right']], k=1)[0]
 
         morale = Morale(
             condition="Fine",

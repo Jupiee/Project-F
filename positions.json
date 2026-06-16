@@ -71,6 +71,10 @@
       "playmaking": 0.1,
       "defensive": 0.2,
       "goalkeeping": 0.7
+    },
+    "foot_bias": {
+      "left": 0.15,
+      "right": 0.85
     }
   },
   "CB": {
@@ -145,6 +149,10 @@
       "playmaking": 0.1,
       "defensive": 0.85,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.45,
+      "right": 0.55
     }
   },
   "LB": {
@@ -219,6 +227,10 @@
       "playmaking": 0.25,
       "defensive": 0.6,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.30,
+      "right": 0.70
     }
   },
   "RB": {
@@ -293,6 +305,10 @@
       "playmaking": 0.25,
       "defensive": 0.6,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.70,
+      "right": 0.30
     }
   },
   "LWB": {
@@ -367,6 +383,10 @@
       "playmaking": 0.25,
       "defensive": 0.5,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.30,
+      "right": 0.70
     }
   },
   "RWB": {
@@ -441,6 +461,10 @@
       "playmaking": 0.25,
       "defensive": 0.5,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.70,
+      "right": 0.30
     }
   },
   "DMF": {
@@ -515,6 +539,10 @@
       "playmaking": 0.3,
       "defensive": 0.6,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.35,
+      "right": 0.65
     }
   },
   "CM": {
@@ -589,6 +617,10 @@
       "playmaking": 0.45,
       "defensive": 0.35,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.5,
+      "right": 0.5
     }
   },
   "LM": {
@@ -663,6 +695,10 @@
       "playmaking": 0.4,
       "defensive": 0.25,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.25,
+      "right": 0.75
     }
   },
   "RM": {
@@ -737,6 +773,10 @@
       "playmaking": 0.4,
       "defensive": 0.25,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.75,
+      "right": 0.25
     }
   },
   "CAM": {
@@ -811,6 +851,10 @@
       "playmaking": 0.45,
       "defensive": 0.1,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.5,
+      "right": 0.5
     }
   },
   "CF": {
@@ -885,6 +929,10 @@
       "playmaking": 0.3,
       "defensive": 0.05,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.4,
+      "right": 0.6
     }
   },
   "ST": {
@@ -959,6 +1007,10 @@
       "playmaking": 0.2,
       "defensive": 0.05,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.35,
+      "right": 0.65
     }
   },
   "LW": {
@@ -1033,6 +1085,10 @@
       "playmaking": 0.35,
       "defensive": 0.1,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.20,
+      "right": 0.80
     }
   },
   "RW": {
@@ -1107,6 +1163,10 @@
       "playmaking": 0.35,
       "defensive": 0.1,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.80,
+      "right": 0.20
     }
   },
   "SS": {
@@ -1181,6 +1241,10 @@
       "playmaking": 0.4,
       "defensive": 0.05,
       "goalkeeping": 0.0
+    },
+    "foot_bias": {
+      "left": 0.4,
+      "right": 0.6
     }
   }
 }
