@@ -70,6 +70,7 @@ class Contract:
     team: str
     duration: str
     weekly_wage: int
+    release_clause: int | None
 
 @dataclass
 class Morale:
@@ -79,6 +80,8 @@ class Morale:
     happiness: int
     playtime: int
 
+# TODO: Add alt_roles field to define what other position the player can play.
+#       Add development field with development class, defines the growth and potential of a player.
 @dataclass
 class Player:
     name: str
@@ -95,6 +98,7 @@ class Player:
     attributes: Attributes
     traits: List[Trait] | None
     contract: Contract
+    value_in_usd: int
 
     def __repr__(self):
 
