@@ -59,6 +59,14 @@ class Attributes:
             self.goalkeeping * goalkeeping
         )
 
+# The experience players gained should depend on:
+# How many games played.
+# Performance of the player.
+@dataclass
+class Development:
+    talent: float
+    remaining_growth: int
+
 @dataclass
 class Trait:
     name: str
@@ -97,6 +105,7 @@ class Player:
     morale: Morale
     attributes: Attributes
     traits: List[Trait] | None
+    development: Development
     contract: Contract
     value_in_usd: int
 
