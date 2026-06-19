@@ -1,6 +1,6 @@
 #from dataclasses import dataclass
 from faker import Faker
-from core.player import Player, Attributes, Trait, Contract, Morale
+from core.player import Player, Attributes, Trait, Contract, Morale, Development
 
 import random
 import json
@@ -100,11 +100,20 @@ class Player_Gen:
 
         traits = None
 
+        talent = self.randomizer.gauss(1.0, 0.15)
+        random_factor = self.randomizer.uniform(0.85, 1.15)
+        growth_remaining = round((30 - age) * talent * random_factor)
+        development = Development(
+            talent,
+            growth_remaining
+        )
+
         contract = Contract(
             "Active",
             "Red Devils United",
             "4 years",
-            15000
+            15000,
+            None
         )
 
         return Player(
@@ -119,7 +128,9 @@ class Player_Gen:
             morale,
             player_stats,
             traits,
-            contract
+            development,
+            contract,
+            1000000
         )
     
     def generate_profile(self, locale):
