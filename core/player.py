@@ -55,13 +55,11 @@ class Attributes:
             self.get_goalkeeping() * goalkeeping
         )
 
-# The experience players gained should depend on:
-# How many games played.
-# Performance of the player.
 @dataclass
 class Development:
-    talent: float
-    remaining_growth: int
+    growth_rate: float
+    max_overall_cap: int
+    current_cap: int
 
 @dataclass
 class Trait:
@@ -112,4 +110,4 @@ class Player:
 
         position_weights = POSITIONS_DATA[self.best_role]["weights"]
 
-        return f"{self.name}\n{self.nationality}\n{self.best_role}\nOverall: {self.attributes.calculate_overall_rating(**position_weights)}\n{self.attributes}\n"
+        return f"{self.name}\n{self.nationality}\n{self.best_role}\nOverall: {self.attributes.calculate_overall_rating(**position_weights)}\n{self.attributes}\nPotential: {self.development.current_cap}\n"
