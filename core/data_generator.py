@@ -20,21 +20,43 @@ class Stats_Gen:
 
         self.randomizer = randomizer
 
-    def generate_stats(self, position_role):
+    def generate_stats(self, position_role, age):
 
         position_stats = POSITIONS_DATA[position_role]["stats"]
 
         player_stats = {}
 
+        age_factor = self.get_age_factor(age)
+
         for stat in position_stats:
 
-            stats_range = range(position_stats[stat][0], position_stats[stat][1])
-            generated_stat = self.randomizer.choice(stats_range)
-            player_stats[stat] = generated_stat
+            min_stat, max_stat = (position_stats[stat][0], position_stats[stat][1])
+            base = min_stat + (max_stat - min_stat) * age_factor
+            noise = self.randomizer.randint(-3, 3)
+            mixed_stat = round(base + noise)
+            finalized_stat = max(min_stat, min(mixed_stat, max_stat))
+            
+            player_stats[stat] = finalized_stat
 
         attributes = Attributes(**player_stats)
 
         return attributes
+    
+    def get_age_factor(self, age):
+
+        if age <= 18:
+            return 0.15
+        
+        if age <= 20:
+            return 0.30
+        
+        if age <= 23:
+            return 0.50
+        
+        if age <= 26:
+            return 0.75
+        
+        return 0.90
 
 class Player_Gen:
 
@@ -83,8 +105,11 @@ class Player_Gen:
                     raise ValueError(f"Invalid Position role {position_role}")
 
         foot_bias_weights = POSITIONS_DATA[position_role]["foot_bias"]
-        player_stats = self.stats_gen.generate_stats(position_role)
+
         player_name, age, nationality = self.generate_profile(self.randomizer.choice(LOCALES))
+
+        player_stats = self.stats_gen.generate_stats(position_role, age)
+
         height = 120
         weight = 70
         strong_foot = self.randomizer.choices(population=['Left', 'Right'], weights=[foot_bias_weights['left'], foot_bias_weights['right']], k=1)[0]
@@ -101,8 +126,9 @@ class Player_Gen:
         random_factor = self.randomizer.uniform(0.85, 1.15)
         growth_remaining = round((30 - age) * talent * random_factor)
         development = Development(
-            talent,
-            growth_remaining
+            0.5,
+            100,
+            100
         )
 
         contract = Contract(
