@@ -23,7 +23,6 @@ class Stats_Gen:
     def generate_stats(self, position_role):
 
         position_stats = POSITIONS_DATA[position_role]["stats"]
-        position_weights = POSITIONS_DATA[position_role]["weights"]
 
         player_stats = {}
 
@@ -34,8 +33,6 @@ class Stats_Gen:
             player_stats[stat] = generated_stat
 
         attributes = Attributes(**player_stats)
-
-        attributes.calculate_overall_rating(**position_weights)
 
         return attributes
 

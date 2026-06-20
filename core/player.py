@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
+import json
 
 @dataclass
 class Attributes:
@@ -29,34 +30,29 @@ class Attributes:
     gk_reflexes: int
     gk_handling: int
 
-    overall: int = 0
-    offensive: int = 0
-    playmaking: int = 0
-    defensive: int = 0
-    goalkeeping: int = 0
-
     def __repr__(self):
 
-        return f"Overall: {self.overall}\nOffensive: {self.offensive}\tDefensive: {self.defensive}\nPlaymaking: {self.playmaking}\tGoalkeeping: {self.goalkeeping}"
-    
-    def __post_init__(self):
+        return f"Offensive: {self.get_offensive()}\tDefensive: {self.get_defensive()}\nPlaymaking: {self.get_playmaking()}\tGoalkeeping: {self.get_goalkeeping()}"
 
-        self.calculate_categorical_ratings()
+    def get_offensive(self):
+        return (self.shooting + self.offensive_vision + self.heading + self.free_kicks) // 4
     
-    def calculate_categorical_ratings(self):
+    def get_playmaking(self):
+        return (self.pace + self.passing + self.dribbling + self.ball_control + self.crossing) // 5
 
-        self.offensive = (self.shooting + self.offensive_vision + self.heading + self.free_kicks) // 4
-        self.playmaking = (self.pace + self.passing + self.dribbling + self.ball_control + self.crossing) // 5
-        self.defensive = (self.tackling + self.defensive_vision + self.interceptions + self.physical) // 4
-        self.goalkeeping = (self.gk_positioning + self.gk_reflexes + self.gk_handling) // 3
+    def get_defensive(self):
+        return (self.tackling + self.defensive_vision + self.interceptions + self.physical) // 4
+
+    def get_goalkeeping(self):
+        return (self.gk_positioning + self.gk_reflexes + self.gk_handling) // 3
 
     def calculate_overall_rating(self, offensive, defensive, playmaking, goalkeeping):
 
-        self.overall = round(
-            self.offensive * offensive +
-            self.playmaking * playmaking +
-            self.defensive * defensive +
-            self.goalkeeping * goalkeeping
+        return round(
+            self.get_offensive() * offensive +
+            self.get_playmaking() * playmaking +
+            self.get_defensive() * defensive +
+            self.get_goalkeeping() * goalkeeping
         )
 
 # The experience players gained should depend on:
@@ -111,4 +107,9 @@ class Player:
 
     def __repr__(self):
 
-        return f"{self.name}\n{self.nationality}\n{self.best_role}\n{self.attributes}\n"
+        with open("positions.json", "r", encoding='utf-8') as position_file:
+            POSITIONS_DATA = json.load(position_file)
+
+        position_weights = POSITIONS_DATA[self.best_role]["weights"]
+
+        return f"{self.name}\n{self.nationality}\n{self.best_role}\nOverall: {self.attributes.calculate_overall_rating(**position_weights)}\n{self.attributes}\n"
