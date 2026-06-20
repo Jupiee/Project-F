@@ -105,6 +105,7 @@ class Player_Gen:
                     raise ValueError(f"Invalid Position role {position_role}")
 
         foot_bias_weights = POSITIONS_DATA[position_role]["foot_bias"]
+        position_weights = POSITIONS_DATA[position_role]["weights"]
 
         player_name, age, nationality = self.generate_profile(self.randomizer.choice(LOCALES))
 
@@ -112,6 +113,7 @@ class Player_Gen:
 
         height = 120
         weight = 70
+        
         strong_foot = self.randomizer.choices(population=['Left', 'Right'], weights=[foot_bias_weights['left'], foot_bias_weights['right']], k=1)[0]
 
         morale = Morale(
@@ -121,14 +123,20 @@ class Player_Gen:
         )
 
         traits = None
-
+        
+        overall_rating = player_stats.calculate_overall_rating(**position_weights)
+        remaining_years = max(0, 35 - age)
         talent = self.randomizer.gauss(1.0, 0.15)
         random_factor = self.randomizer.uniform(0.85, 1.15)
-        growth_remaining = round((30 - age) * talent * random_factor)
+        growth_room = remaining_years * talent * random_factor
+        max_cap = overall_rating + growth_room
+
+        max_cap = round(min(99, max_cap))
+
         development = Development(
             0.5,
-            100,
-            100
+            max_cap,
+            max_cap
         )
 
         contract = Contract(
