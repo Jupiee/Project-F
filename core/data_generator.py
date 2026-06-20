@@ -4,10 +4,19 @@ from core.player import Player, Attributes, Trait, Contract, Morale, Development
 
 import random
 import json
+import logging
 
 #  Young player => 18 - 20
 #  Prime player => 20 - 30
 #  Developed player => 30 - 40
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+)
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 LOCALES = ["fr_FR", "it_IT", "de_DE", "en_US", "en_UK", "pt_BR", "es_AR", "es_ES", "uk_UA", "tr_TR", "sv_SE", "sq_AL"]
 
@@ -28,6 +37,11 @@ class Stats_Gen:
 
         age_factor = self.get_age_factor(age)
 
+        logger.debug(
+            f"Generating stats for {position_role}, "
+            f"Age={age}, Age Factor={age_factor}"
+        )
+
         for stat in position_stats:
 
             min_stat, max_stat = (position_stats[stat][0], position_stats[stat][1])
@@ -35,6 +49,14 @@ class Stats_Gen:
             noise = self.randomizer.randint(-3, 3)
             mixed_stat = round(base + noise)
             finalized_stat = max(min_stat, min(mixed_stat, max_stat))
+
+            logger.debug(
+                f"{stat}: "
+                f"range=({min_stat}-{max_stat}), "
+                f"base={base:.2f}, "
+                f"noise={noise}, "
+                f"final={finalized_stat}"
+            )
             
             player_stats[stat] = finalized_stat
 
@@ -113,7 +135,7 @@ class Player_Gen:
 
         height = 120
         weight = 70
-        
+
         strong_foot = self.randomizer.choices(population=['Left', 'Right'], weights=[foot_bias_weights['left'], foot_bias_weights['right']], k=1)[0]
 
         morale = Morale(
