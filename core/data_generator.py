@@ -169,6 +169,10 @@ class Player_Gen:
             None
         )
 
+        logger.debug(
+            f"\n{player_name}\n{nationality}\n{position_role}\nOverall: {overall_rating}\nOffensive: {player_stats.get_offensive()}\tDefensive: {player_stats.get_defensive()}\nPlaymaking: {player_stats.get_playmaking()}\tGoalkeeping: {player_stats.get_goalkeeping()}\nAge: {age}\tPotential: {max_cap}\n"
+        )
+
         return Player(
             player_name,
             age,
@@ -194,5 +198,13 @@ class Player_Gen:
         player_name = f"{fake.unique.first_name_male()} {fake.unique.last_name()}"
         age = fake.random_int(min=18, max=27)
         nationality = fake.current_country()
+
+        logger.debug(
+            f"Generated Profile -> "
+            f"Name={player_name}, "
+            f"Age={age}, "
+            f"Nationality={nationality}, "
+            f"Locale={locale}"
+        )
 
         return player_name, age, nationality

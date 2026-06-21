@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from typing import List
 
-import json
-
 @dataclass
 class Attributes:
 
@@ -29,10 +27,6 @@ class Attributes:
     gk_positioning: int
     gk_reflexes: int
     gk_handling: int
-
-    def __repr__(self):
-
-        return f"Offensive: {self.get_offensive()}\tDefensive: {self.get_defensive()}\nPlaymaking: {self.get_playmaking()}\tGoalkeeping: {self.get_goalkeeping()}"
 
     def get_offensive(self):
         return (self.shooting + self.offensive_vision + self.heading + self.free_kicks) // 4
@@ -102,12 +96,3 @@ class Player:
     development: Development
     contract: Contract
     value_in_usd: int
-
-    def __repr__(self):
-
-        with open("positions.json", "r", encoding='utf-8') as position_file:
-            POSITIONS_DATA = json.load(position_file)
-
-        position_weights = POSITIONS_DATA[self.best_role]["weights"]
-
-        return f"{self.name}\n{self.nationality}\n{self.best_role}\nOverall: {self.attributes.calculate_overall_rating(**position_weights)}\n{self.attributes}\nPotential: {self.development.current_cap}\n"
